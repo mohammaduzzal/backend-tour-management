@@ -4,29 +4,11 @@ import httpStatus from "http-status-codes";
 import { userServices } from "./user.service";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
-import { verifyToken } from "../../utils/jwt";
-import { envVars } from "../../config/env";
 import { JwtPayload } from "jsonwebtoken";
 
 
 
 
-// const createUser = async(req :Request, res :Response, next :NextFunction) =>{
-//     try {
-//         // throw new AppError(httpStatus.BAD_GATEWAY, "fake error")
-//         const user = await userServices.createUser(req.body)
-
-//         res.status(httpStatus.CREATED).json({
-//             message : "user created successfully",
-//             user
-//         })
-        
-   
-//     } catch (error :any) {
-//         console.log(error);
-//        next(error)
-//     }
-// };
 
 
 const createUser = catchAsync(async(req : Request, res : Response,next :NextFunction)=>{
