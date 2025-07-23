@@ -58,4 +58,4 @@ router.post("/create",
 
 
 
-export const tourRouter = router
+export const tourRoutes = router
