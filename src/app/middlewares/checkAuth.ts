@@ -22,11 +22,20 @@ export const checkAuth = (...authRoles : string[])=>async(req :Request,res:Respo
     if (!isUserExist) {
         throw new AppError(httpStatus.BAD_REQUEST, "user does not exist")
     }
+
+
     if (isUserExist.isActive === IsActive.BLOCKED || isUserExist.isActive === IsActive.INACTIVE) {
         throw new AppError(httpStatus.BAD_REQUEST, `user is ${isUserExist.isActive}`)
     }
+
+
     if (isUserExist.isDelete) {
         throw new AppError(httpStatus.BAD_REQUEST, "user is deleted")
+    }
+
+
+    if(!isUserExist.isVerified){
+        throw new AppError(httpStatus.BAD_REQUEST, "user not verified")
     }
 
 
