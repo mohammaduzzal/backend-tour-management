@@ -99,10 +99,65 @@ const logout =catchAsync(async(req :Request,res:Response,next:NextFunction)=>{
 const resetPassword =catchAsync(async(req : Request,res:Response,next:NextFunction)=>{
     
     const decodedToken = req.user;
+    
+
+     await authServices.resetPassword(req.body,decodedToken as JwtPayload)
+    
+    
+    
+    sendResponse(res,{
+        success:true,
+        statusCode:httpStatus.OK,
+        message:"password changed successfully",
+        data :null
+    })
+})
+
+
+const setPassword =catchAsync(async(req : Request,res:Response,next:NextFunction)=>{
+    
+    const decodedToken = req.user as JwtPayload;
+    const {password} = req.body;
+
+     await authServices.setPassword(decodedToken.userId, password)
+    
+    
+    
+    sendResponse(res,{
+        success:true,
+        statusCode:httpStatus.OK,
+        message:"password changed successfully",
+        data :null
+    })
+})
+
+
+const forgetPassword =catchAsync(async(req : Request,res:Response,next:NextFunction)=>{
+    
+   
+
+    const {email} = req.body;
+
+     await authServices.forgetPassword(email)
+    
+    
+    
+    sendResponse(res,{
+        success:true,
+        statusCode:httpStatus.OK,
+        message:"email sent successfully",
+        data :null
+    })
+})
+
+
+const changePassword =catchAsync(async(req : Request,res:Response,next:NextFunction)=>{
+    
+    const decodedToken = req.user;
     const newPassword = req.body.newPassword;
     const oldPassword = req.body.oldPassword;
 
-     await authServices.resetPassword(oldPassword,newPassword,decodedToken as JwtPayload)
+     await authServices.changePassword(oldPassword,newPassword,decodedToken as JwtPayload)
     
     
     
@@ -144,5 +199,8 @@ export const authController={
     getNewAccessToken,
     logout,
     resetPassword,
-    googleCallback
+    googleCallback,
+    changePassword,
+    setPassword,
+    forgetPassword
 }

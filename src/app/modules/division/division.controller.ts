@@ -4,10 +4,18 @@ import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../../utils/catchAsync";
 import { DivisionServices } from "./division.service";
 import { sendResponse } from "../../utils/sendResponse";
+import { IDivision } from './division.interface';
 
 
 const createDivision = catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
-    const result = await DivisionServices.createDivision(req.body)
+   
+    const payload : IDivision = {
+        ...req.body,
+        thumbnail : req.file?.path
+    }
+
+
+    const result = await DivisionServices.createDivision(payload)
 
     sendResponse(res,{
     success : true,
@@ -46,7 +54,10 @@ const getSingleDivision = catchAsync(async(req : Request,res:Response,next:NextF
 
 const updateDivision = catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
     const id = req.params.id;
-    const payload = req.body;
+    const payload:IDivision ={
+        ...req.body,
+        thumbnail : req.file?.path
+    } 
 
     const result = await DivisionServices.updateDivision(id,payload);
 

@@ -3,42 +3,64 @@ import dotenv from "dotenv";
 dotenv.config()
 
 interface EnvConfig {
-    PORT: string,
-    DB_URL: string,
-    NODE_ENV: "development" | "production",
-    BCRYPT_SALT_ROUND: string,
-    JWT_ACCESS_EXPIRES: string,
-    JWT_ACCESS_SECRET: string,
-    JWT_REFRESH_SECRET: string,
-    JWT_REFRESH_EXPIRED: string,
-    SUPER_ADMIN_EMAIL: string,
-    SUPER_ADMIN_PASSWORD: string,
-    GOOGLE_CLIENT_ID: string,
-    GOOGLE_CLIENT_SECRET: string,
-    GOOGLE_CALLBACK_URL: string,
-    EXPRESS_SESSION_SECRET: string,
-    FRONTEND_URL: string,
+    PORT: string;
+    DB_URL: string;
+    NODE_ENV: "development" | "production";
+    BCRYPT_SALT_ROUND: string;
+    JWT_ACCESS_EXPIRES: string;
+    JWT_ACCESS_SECRET: string;
+    JWT_REFRESH_SECRET: string;
+    JWT_REFRESH_EXPIRED: string;
+    SUPER_ADMIN_EMAIL: string;
+    SUPER_ADMIN_PASSWORD: string;
+    GOOGLE_CLIENT_ID: string;
+    GOOGLE_CLIENT_SECRET: string;
+    GOOGLE_CALLBACK_URL: string;
+    EXPRESS_SESSION_SECRET: string;
+    FRONTEND_URL: string;
     SSL: {
-        SSL_STORE_ID: string,
-        SSL_STORE_PASS: string,
-        SSL_PAYMENT_API: string,
-        SSL_VALIDATION_API: string,
-        SSL_SUCCESS_FRONTEND_URL: string,
-        SSL_FAIL_FRONTEND_URL: string,
-        SSL_CANCEL_FRONTEND_URL: string,
-        SSL_SUCCESS_BACKEND_URL: string,
-        SSL_FAIL_BACKEND_URL: string,
-        SSL_CANCEL_BACKEND_URL: string,
+        SSL_STORE_ID: string;
+        SSL_STORE_PASS: string;
+        SSL_PAYMENT_API: string;
+        SSL_VALIDATION_API: string;
+        SSL_SUCCESS_FRONTEND_URL: string;
+        SSL_FAIL_FRONTEND_URL: string;
+        SSL_CANCEL_FRONTEND_URL: string;
+        SSL_SUCCESS_BACKEND_URL: string;
+        SSL_FAIL_BACKEND_URL: string;
+        SSL_CANCEL_BACKEND_URL: string;
+    };
+    CLOUDINARY: {
+        CLOUDINARY_CLOUD_NAME: string;
+        CLOUDINARY_API_KEY: string;
+        CLOUDINARY_API_SECRET: string;
+
+    };
+    EMAIL_SENDER: {
+        SMTP_HOST: string;
+        SMTP_PORT: string;
+        SMTP_USER: string;
+        SMTP_FROM: string;
+        SMTP_PASS: string;
     }
 }
 
 const loadEnvVariables = (): EnvConfig => {
-    const requiredEnvVariables: string[] = ["PORT", "DB_URL", "NODE_ENV", "BCRYPT_SALT_ROUND", "JWT_ACCESS_EXPIRES", "JWT_ACCESS_SECRET", "SUPER_ADMIN_EMAIL", "SUPER_ADMIN_PASSWORD", "JWT_REFRESH_SECRET", "JWT_REFRESH_EXPIRED", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GOOGLE_CALLBACK_URL", "EXPRESS_SESSION_SECRET", "FRONTEND_URL", "SSL_STORE_ID", "SSL_STORE_PASS", "SSL_PAYMENT_API", "SSL_VALIDATION_API","SSL_SUCCESS_FRONTEND_URL",
+    const requiredEnvVariables: string[] = ["PORT", "DB_URL", "NODE_ENV", "BCRYPT_SALT_ROUND", "JWT_ACCESS_EXPIRES", "JWT_ACCESS_SECRET", "SUPER_ADMIN_EMAIL", "SUPER_ADMIN_PASSWORD", "JWT_REFRESH_SECRET", "JWT_REFRESH_EXPIRED", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GOOGLE_CALLBACK_URL", "EXPRESS_SESSION_SECRET", "FRONTEND_URL", "SSL_STORE_ID", "SSL_STORE_PASS", "SSL_PAYMENT_API", "SSL_VALIDATION_API", "SSL_SUCCESS_FRONTEND_URL",
         "SSL_FAIL_FRONTEND_URL",
         "SSL_CANCEL_FRONTEND_URL",
         "SSL_SUCCESS_BACKEND_URL",
         "SSL_FAIL_BACKEND_URL",
-        "SSL_CANCEL_BACKEND_URL"];
+        "SSL_CANCEL_BACKEND_URL",
+        "CLOUDINARY_CLOUD_NAME",
+        "CLOUDINARY_API_KEY",
+        "CLOUDINARY_API_SECRET",
+        "SMTP_PASS",
+        "SMTP_FROM",
+        "SMTP_USER",
+        "SMTP_PORT",
+        "SMTP_HOST"
+    ];
 
     requiredEnvVariables.forEach(key => {
         if (!process.env[key]) {
@@ -68,13 +90,27 @@ const loadEnvVariables = (): EnvConfig => {
             SSL_STORE_PASS: process.env.SSL_STORE_PASS as string,
             SSL_PAYMENT_API: process.env.SSL_PAYMENT_API as string,
             SSL_VALIDATION_API: process.env.SSL_VALIDATION_API as string,
-             SSL_SUCCESS_FRONTEND_URL: process.env.SSL_SUCCESS_FRONTEND_URL as string,
+            SSL_SUCCESS_FRONTEND_URL: process.env.SSL_SUCCESS_FRONTEND_URL as string,
             SSL_FAIL_FRONTEND_URL: process.env.SSL_FAIL_FRONTEND_URL as string,
             SSL_CANCEL_FRONTEND_URL: process.env.SSL_CANCEL_FRONTEND_URL as string,
             SSL_SUCCESS_BACKEND_URL: process.env.SSL_SUCCESS_BACKEND_URL as string,
             SSL_FAIL_BACKEND_URL: process.env.SSL_FAIL_BACKEND_URL as string,
             SSL_CANCEL_BACKEND_URL: process.env.SSL_CANCEL_BACKEND_URL as string,
+        },
+        CLOUDINARY: {
+            CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
+            CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
+            CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string
+
+        },
+        EMAIL_SENDER: {
+            SMTP_HOST:process.env.SMTP_HOST as string,
+            SMTP_PORT:process.env.SMTP_PORT as string,
+            SMTP_USER:process.env.SMTP_USER as string,
+            SMTP_FROM:process.env.SMTP_FROM as string,
+            SMTP_PASS:process.env.SMTP_PASS as string
         }
+
     }
 }
 
