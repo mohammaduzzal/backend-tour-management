@@ -51,7 +51,7 @@ const getNewAccessToken = async (refreshToken: string) => {
 
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const resetPassword = async (payload : Record<string,any>, decodedToken: JwtPayload) => {
 
     if(payload.id != decodedToken.userId){

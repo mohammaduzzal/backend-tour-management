@@ -35,17 +35,6 @@ import { IsActive, Role } from "./user.interface";
  export const updateUserZodSchema = z.object({
         name: z.string({invalid_type_error: "name must be string"}).min(2,{message:"name is too short.minimum 2 character long"}).max(50,{message:"name is too long.maximum 50 character long"}).optional(),
 
-        password: z.string().min(8)
-        .regex(/^(?=.*[A-Z])/,{
-            message:"password must contain at least 1 uppercase",
-        })
-        .regex(/^(?=.*[!@#$%^&*])/,{
-            message : "password must contain at least 1 special character",
-        })
-        .regex(/^(?=.*\d)/,{
-            message: "password must contain at least 1 number",
-        }).optional(),
-
         phone: z.
         string({invalid_type_error : "phone number must be string"})
         .regex(/^(?:\+8801\d{9})$/,{

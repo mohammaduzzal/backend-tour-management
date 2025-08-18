@@ -16,7 +16,7 @@ export interface ITour {
     arrivalLocation?: string;
     included?: string[];
     excluded?: string[];
-    amenities: string[];
+    amenities?: string[];
     tourPlan?: string[];
     maxGuest?: number;
     minAge?: number;

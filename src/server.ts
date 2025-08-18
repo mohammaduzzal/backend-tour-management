@@ -1,67 +1,69 @@
 /* eslint-disable no-console */
-import {Server} from "http";
+import { Server } from "http";
 import app from "./app";
 import mongoose from "mongoose";
 import { envVars } from "./app/config/env";
 import { seedSuperAdmin } from "./app/utils/seedSuperAdmin";
+import { connectRedis } from "./app/config/redis.config";
 
 
 
 
 
-let server : Server;
+let server: Server;
 
 
 
-const startServer = async() =>{
-   try {
-     await mongoose.connect(envVars.DB_URL)
-    console.log("connected to db!!");
+const startServer = async () => {
+    try {
+        await mongoose.connect(envVars.DB_URL)
+        console.log("connected to db!!");
 
-   server =  app.listen(envVars.PORT,()=>{
-        console.log(`server is listening on port ${envVars.PORT}`);
-    })
-    
-   } catch (error) {
-    console.log(error);
-   }
+        server = app.listen(envVars.PORT, () => {
+            console.log(`server is listening on port ${envVars.PORT}`);
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
 
 }
 
-(async()=>{
-  await  startServer()
-await seedSuperAdmin()
+(async () => {
+    await connectRedis()
+    await startServer()
+    await seedSuperAdmin()
 })()
 
-process.on("unhandledRejection", (err)=>{
+process.on("unhandledRejection", (err) => {
     console.log("unhandled rejection detected.... server shutting down", err);
 
-    if(server){
-        server.close(()=>{
+    if (server) {
+        server.close(() => {
             process.exit(1)
         });
-        
+
     }
     process.exit(1)
 })
 
 
-process.on("uncaughtException", (err)=>{
+process.on("uncaughtException", (err) => {
     console.log("uncaught exception detected....server is shutting down...", err);
 
-    if(server){
-        server.close(()=>{
+    if (server) {
+        server.close(() => {
             process.exit(1)
         })
     }
     process.exit(1)
 })
 
-process.on("SIGTERM", ()=>{
+process.on("SIGTERM", () => {
     console.log("sigterm signal received..server is shutting down...");
 
-    if(server){
-        server.close(()=>{
+    if (server) {
+        server.close(() => {
             process.exit(1)
         })
     }
@@ -74,7 +76,7 @@ process.on("SIGTERM", ()=>{
 // throw new Error("i forgot to handle local server prb with try catch") //uncaught rejection error
 
 
-// unhandled rejection error =  related to Promise 
+// unhandled rejection error =  related to Promise
 // uncaught rejection error = related to local server problem that did not handle with try catch
 // signal terminate  sigterm =related to server hosting owner (hosting)
 
