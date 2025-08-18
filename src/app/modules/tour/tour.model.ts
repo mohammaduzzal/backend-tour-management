@@ -50,6 +50,10 @@ const tourSchema = new Schema<ITour>({
         type: [String],
         default: []
     },
+    amenities: {
+        type: [String],
+        default: []
+    },
     maxGuest: {
         type: Number
     },

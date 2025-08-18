@@ -1,4 +1,3 @@
-import httpStatus from 'http-status-codes';
 import bcryptjs from 'bcryptjs';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import passport from "passport";
@@ -7,7 +6,7 @@ import { envVars } from "./env";
 import { User } from "../modules/user/user.model";
 import { IsActive, Role } from "../modules/user/user.interface";
 import { Strategy as localStrategy } from "passport-local";
-import AppError from '../errorHelpers/AppError';
+
 
 passport.use(
     new localStrategy({

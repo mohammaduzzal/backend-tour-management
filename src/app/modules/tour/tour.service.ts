@@ -21,7 +21,7 @@ const getAllTours = async (query: Record<string, string>) => {
 
     const queryBuilder = new QueryBuilder(Tour.find(), query)
 
-    const tours = await queryBuilder
+    const tours =  queryBuilder
         .search(tourSearchableFields)
         .filter()
         .sort()

@@ -14,7 +14,7 @@ export interface IPayment{
     transactionId : string;
     amount : number;
     paymentGetawayData ?: any ;
-    invoiceUrl : string;
+    invoiceUrl ?: string;
     status : PAYMENT_STATUS
 
 }
